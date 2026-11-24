@@ -1,0 +1,23 @@
+{
+  "name": "CoCoFlix Web - Movies, Series & Live TV",
+  "short_name": "CoCoFlix",
+  "description": "Watch thousands of Bollywood, Hollywood, South Hindi Dubbed movies, trending Web Series, and 24/7 Live Sports in high definition.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#07090e",
+  "theme_color": "#e50914",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "assets/images/logo_icon.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/images/logo_icon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

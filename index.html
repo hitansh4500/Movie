@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>CoCoFlix - Stream Movies, Web Series & Live Cricket Online</title>
+  <meta name="description" content="Watch latest Bollywood, Hollywood, South Indian Hindi Dubbed movies, trending Web Series, and 24/7 Live Sports streaming on CoCoFlix Web. 100% Free in 4K & 1080p directly in your browser.">
+  <meta name="theme-color" content="#e50914">
+  <meta name="referrer" content="no-referrer">
+
+  <!-- Web App Manifest (PWA - No APK Needed) -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="CoCoFlix">
+  <link rel="apple-touch-icon" href="assets/images/logo_icon.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="assets/images/logo_icon.png">
+
+  <!-- Google Fonts: Outfit & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome 6 Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+
+  <!-- Top Sticky Navigation Bar -->
+  <header class="site-header">
+    <div class="container">
+      <div class="nav-wrap">
+        <!-- Logo -->
+        <a href="#" class="brand-logo" onclick="app.setCategory('all')">
+          <img src="assets/images/logo_icon.png" alt="CoCoFlix Logo" class="logo-img">
+          <span class="brand-name">CoCoFlix</span>
+          <span class="brand-badge">Web</span>
+        </a>
+
+        <!-- Desktop Navigation Links -->
+        <ul class="nav-links">
+          <li class="nav-link-item active" data-cat="all"><a href="#"><i class="fa-solid fa-house"></i> Home</a></li>
+          <li class="nav-link-item" data-cat="bollywood"><a href="#">Bollywood</a></li>
+          <li class="nav-link-item" data-cat="hollywood"><a href="#">Hollywood</a></li>
+          <li class="nav-link-item" data-cat="dubbed"><a href="#">Hindi Dubbed</a></li>
+          <li class="nav-link-item" data-cat="south"><a href="#">South Hindi</a></li>
+          <li class="nav-link-item" data-cat="series"><a href="#"><i class="fa-solid fa-tv"></i> Web Series</a></li>
+          <li class="nav-link-item" data-cat="live"><a href="#"><i class="fa-solid fa-satellite-dish" style="color: var(--primary);"></i> Live TV</a></li>
+        </ul>
+
+        <!-- Nav Actions (Search, Watchlist, Sync, Watch Free) -->
+        <div class="nav-actions">
+          <!-- Search Box -->
+          <div class="search-container">
+            <div class="search-input-wrap">
+              <i class="fa-solid fa-magnifying-glass search-icon"></i>
+              <input type="text" id="search-input" class="search-input" placeholder="Search movies, cast... ( / )" autocomplete="off">
+              <i class="fa-solid fa-xmark search-clear" id="search-clear"></i>
+            </div>
+            <!-- Search Results Dropdown -->
+            <div class="search-results-dropdown" id="search-dropdown"></div>
+          </div>
+
+          <!-- Auto-Sync Catalog Button -->
+          <button class="btn-sync-catalog" id="btn-sync-catalog" title="Sync Latest Catalog" onclick="app.syncWithApp()">
+            <i class="fa-solid fa-arrows-rotate"></i>
+            <span class="sync-label">Sync</span>
+          </button>
+
+          <!-- Watchlist Button -->
+          <button class="btn-icon" title="My Watchlist" onclick="app.setCategory('watchlist')">
+            <i class="fa-solid fa-bookmark"></i>
+            <span class="badge-count" id="watchlist-count" style="display: none;">0</span>
+          </button>
+
+          <!-- Telegram Community Pill -->
+          <button class="btn-icon telegram-btn" title="Join Telegram Community">
+            <i class="fa-brands fa-telegram" style="color: #29b6f6; font-size: 18px;"></i>
+          </button>
+
+          <!-- Watch Free Shortcut CTA -->
+          <button class="btn-primary" style="padding: 9px 18px; font-size: 13px; font-weight: 700;" onclick="app.setCategory('all'); window.scrollTo({top: 480, behavior: 'smooth'});">
+            <i class="fa-solid fa-play"></i> Watch Free
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Spotlight Carousel Section -->
+  <section class="hero-spotlight" id="hero-section">
+    <div class="hero-bg-carousel" id="hero-slides"></div>
+    <div class="hero-overlay"></div>
+
+    <div class="container hero-content">
+      <div class="hero-badge-row">
+        <span class="badge-tag quality" id="hero-quality">4K UHD</span>
+        <span class="badge-tag rating" id="hero-rating"><i class="fa-solid fa-star"></i> 8.4 IMDb</span>
+        <span class="badge-tag genre" id="hero-genre">Sci-Fi • Action</span>
+      </div>
+
+      <h1 class="hero-title" id="hero-title">Kalki 2898 AD</h1>
+      <p class="hero-tagline" id="hero-tagline">The Future of Indian Cinema Has Arrived</p>
+      <p class="hero-description" id="hero-desc">
+        In the dystopian desert city of Kasi, in the year 2898 AD, the Supreme God Yaskin rules with an iron fist...
+      </p>
+
+      <div class="hero-meta">
+        <span><i class="fa-solid fa-volume-high"></i> <span id="hero-audio">Hindi • Dolby 5.1</span></span>
+        <span><i class="fa-regular fa-clock"></i> <span id="hero-duration">3h 1min</span></span>
+        <span><i class="fa-solid fa-shield-halved"></i> U/A 16+</span>
+      </div>
+
+      <div class="hero-buttons">
+        <button class="btn-primary" id="hero-play-btn">
+          <i class="fa-solid fa-play"></i> Watch Now
+        </button>
+        <button class="btn-secondary" id="hero-fav-btn">
+          <i class="fa-solid fa-plus"></i> Add to List
+        </button>
+        <button class="btn-secondary" onclick="app.setCategory('live')">
+          <i class="fa-solid fa-satellite-dish" style="color: var(--primary);"></i> Watch Live TV
+        </button>
+      </div>
+    </div>
+
+    <!-- Carousel Indicator Dots -->
+    <div class="hero-dots" id="hero-dots"></div>
+  </section>
+
+  <!-- Category & Genre Sticky Filter Bar -->
+  <section class="filter-bar-section">
+    <div class="container">
+      <div class="filter-bar-inner">
+        <div class="category-pills" id="category-pills"></div>
+        <select class="genre-filter-select" id="genre-select"></select>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content Catalog Section -->
+  <section class="content-section" id="movies-section">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-title-wrap">
+          <i class="fa-solid fa-film section-icon"></i>
+          <div>
+            <h2 class="section-title" id="catalog-title">Trending Movies & Series</h2>
+            <p class="section-subtitle">Stream in High Definition with Multi-Server Support</p>
+          </div>
+        </div>
+        <span class="section-count" id="catalog-count">0 Titles</span>
+      </div>
+
+      <!-- Media Cards Grid -->
+      <div class="media-grid" id="media-grid"></div>
+    </div>
+  </section>
+
+  <!-- Live TV & Sports Streaming Section -->
+  <section class="content-section" id="live-channels-section">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-title-wrap">
+          <i class="fa-solid fa-satellite-dish section-icon" style="color: var(--primary);"></i>
+          <div>
+            <h2 class="section-title">24/7 Live TV & Sports Streaming</h2>
+            <p class="section-subtitle">Live Cricket, Football, News & Entertainment Channels</p>
+          </div>
+        </div>
+        <span class="live-beacon"><span class="pulse-dot"></span> 4 Live Streams</span>
+      </div>
+
+      <!-- Live Channels Grid -->
+      <div class="live-grid" id="live-grid"></div>
+    </div>
+  </section>
+
+  <!-- Web Platform Feature Promotion Banner (No App Download Needed) -->
+  <section class="app-promo-section">
+    <div class="container">
+      <div class="promo-box">
+        <div class="promo-text">
+          <div class="promo-tag">
+            <i class="fa-solid fa-globe"></i> 100% Web Streaming • No App Download Required
+          </div>
+          <h2 class="promo-heading">Stream on Any Device Directly in Your Browser</h2>
+          <p class="promo-subheading">
+            Enjoy thousands of 4K & 1080p movies and series without downloading any file. CoCoFlix Web works natively on iPhone, iPad, Android, Mac, Windows, and Smart TV browsers.
+          </p>
+
+          <div class="promo-features">
+            <div class="promo-feature-item">
+              <i class="fa-solid fa-check"></i> 100% Free - Instant Web Playback
+            </div>
+            <div class="promo-feature-item">
+              <i class="fa-solid fa-check"></i> No Installation or Setup Required
+            </div>
+            <div class="promo-feature-item">
+              <i class="fa-solid fa-check"></i> Multi-Server Streaming Options
+            </div>
+            <div class="promo-feature-item">
+              <i class="fa-solid fa-check"></i> Add to Home Screen (PWA Supported)
+            </div>
+          </div>
+
+          <div class="promo-actions">
+            <button class="btn-primary" onclick="app.setCategory('all'); window.scrollTo({top: 480, behavior: 'smooth'});">
+              <i class="fa-solid fa-film"></i> Start Watching Now
+            </button>
+            <button class="btn-secondary" onclick="app.openPwaGuide()">
+              <i class="fa-solid fa-mobile-screen"></i> Add to Home Screen
+            </button>
+            <button class="btn-secondary telegram-btn">
+              <i class="fa-brands fa-telegram" style="color: #29b6f6;"></i> Join Telegram
+            </button>
+          </div>
+        </div>
+
+        <div class="promo-graphic">
+          <div class="promo-logo-display">
+            <img src="assets/images/logo_icon.png" alt="CoCoFlix Web Platform">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="brand-logo">
+            <img src="assets/images/logo_icon.png" alt="CoCoFlix" style="height: 36px;">
+            <span class="brand-name">CoCoFlix</span>
+            <span class="brand-badge" style="font-size: 10px; padding: 2px 6px;">Web</span>
+          </div>
+          <p>
+            CoCoFlix Web is an open digital entertainment platform streaming the latest Bollywood, Hollywood, South Indian cinema, trending Web Series, and 24/7 live cricket and news.
+          </p>
+          <div style="display: flex; gap: 12px;">
+            <button class="btn-icon telegram-btn" title="Telegram Channel"><i class="fa-brands fa-telegram"></i></button>
+            <a href="https://cocoflix.net" target="_blank" rel="noopener noreferrer" class="btn-icon" title="Official Web"><i class="fa-solid fa-globe"></i></a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Categories</h4>
+          <ul>
+            <li><a href="#" onclick="app.setCategory('bollywood')">Bollywood Movies</a></li>
+            <li><a href="#" onclick="app.setCategory('hollywood')">Hollywood Blockbusters</a></li>
+            <li><a href="#" onclick="app.setCategory('dubbed')">Hindi Dubbed</a></li>
+            <li><a href="#" onclick="app.setCategory('south')">South Indian Cinema</a></li>
+            <li><a href="#" onclick="app.setCategory('series')">Web Series & Shows</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Live & Features</h4>
+          <ul>
+            <li><a href="#" onclick="app.setCategory('live')">Live Cricket Streaming</a></li>
+            <li><a href="#" onclick="app.setCategory('live')">24/7 News Channels</a></li>
+            <li><a href="#" onclick="app.setCategory('watchlist')">My Watchlist</a></li>
+            <li><a href="#" onclick="app.openPwaGuide()">Install on Smart TV / Phone</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Web Platform</h4>
+          <ul>
+            <li><a href="#" onclick="app.syncWithApp()"><i class="fa-solid fa-arrows-rotate"></i> Sync Live Catalog</a></li>
+            <li><a href="https://t.me/cocoflixapp" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-telegram"></i> Official Telegram Community</a></li>
+            <li><a href="#" onclick="app.openPwaGuide()"><i class="fa-solid fa-circle-question"></i> How to Add to Home Screen</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2024-2026 CoCoFlix Web Edition. Stream anytime, anywhere on any device.</p>
+        <p style="font-size: 12px; color: var(--text-sub);">CoCoFlix does not store files on its servers; all streams are aggregated from publicly accessible media endpoints.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Mobile Bottom Navigation Bar -->
+  <nav class="mobile-bottom-nav">
+    <a href="#" class="mobile-nav-item active" data-cat="all">
+      <i class="fa-solid fa-house"></i>
+      <span>Home</span>
+    </a>
+    <a href="#" class="mobile-nav-item" data-cat="bollywood">
+      <i class="fa-solid fa-film"></i>
+      <span>Movies</span>
+    </a>
+    <a href="#" class="mobile-nav-item" data-cat="series">
+      <i class="fa-solid fa-tv"></i>
+      <span>Series</span>
+    </a>
+    <a href="#" class="mobile-nav-item" data-cat="live">
+      <i class="fa-solid fa-satellite-dish"></i>
+      <span>Live TV</span>
+    </a>
+    <a href="#" class="mobile-nav-item" data-cat="watchlist">
+      <i class="fa-solid fa-bookmark"></i>
+      <span>My List</span>
+    </a>
+  </nav>
+
+  <!-- ==================== MODALS ==================== -->
+
+  <!-- 1. Video Player Modal -->
+  <div class="modal-overlay" id="player-modal">
+    <div class="modal-content player-modal-content">
+      <button class="modal-close-btn" title="Close Player"><i class="fa-solid fa-xmark"></i></button>
+      
+      <!-- Video Player Element -->
+      <div class="video-player-container" id="video-container">
+        <!-- Direct HTML5 / HLS Video Player -->
+        <video id="main-video-player" class="video-element" controls controlslist="nodownload" playsinline></video>
+        
+        <!-- Iframe embed option for cloud players -->
+        <iframe id="main-iframe-player" class="video-element" style="display:none; width:100%; height:100%; border:0;" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="no-referrer"></iframe>
+      </div>
+
+      <!-- Player Header & Multi-Server Controls -->
+      <div class="player-header-bar">
+        <div class="player-title-info">
+          <h3 id="player-title">Movie Title</h3>
+          <p id="player-subtitle">Quality • Audio • Year</p>
+        </div>
+
+        <!-- Server Selector -->
+        <div class="server-selector-wrap">
+          <span style="font-size: 12px; color: var(--text-sub); font-weight: 600;">Server:</span>
+          <button class="server-btn active" data-server="server1" title="Cloud Web Player"><i class="fa-solid fa-cloud"></i> Server 1 (Cloud)</button>
+          <button class="server-btn" data-server="server2" title="Direct HLS Stream"><i class="fa-solid fa-bolt"></i> Server 2 (HLS Direct)</button>
+          <button class="server-btn" id="player-copy-btn" title="Copy stream URL for VLC or IINA player"><i class="fa-solid fa-copy"></i> Copy Link (VLC)</button>
+          <a id="player-external-link" href="#" target="_blank" rel="noopener noreferrer" class="server-btn" style="text-decoration: none; color: #fff; background: rgba(255,255,255,0.08);"><i class="fa-solid fa-arrow-up-right-from-square"></i> Open Stream</a>
+        </div>
+      </div>
+
+      <!-- Episodes Carousel for Web Series -->
+      <div class="player-episodes-section" id="player-episodes-section" style="display: none;">
+        <div class="episodes-tabs-header">
+          <h4 style="font-size: 15px; font-weight: 700; color: #fff;">Episodes</h4>
+          <select class="season-select-dropdown" id="player-season-select"></select>
+        </div>
+        <div class="episodes-scroll-list" id="player-episodes-list"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. Movie Details Modal -->
+  <div class="modal-overlay" id="detail-modal">
+    <div class="modal-content">
+      <button class="modal-close-btn" title="Close"><i class="fa-solid fa-xmark"></i></button>
+      
+      <div class="detail-modal-body">
+        <div class="detail-backdrop" id="modal-detail-backdrop">
+          <div class="detail-backdrop-overlay"></div>
+        </div>
+
+        <div class="detail-main-info">
+          <img src="" alt="" class="detail-poster-img" id="modal-detail-poster" onerror="this.src='assets/images/placeholder_1.png'">
+          
+          <div class="detail-text-col">
+            <h2 class="detail-title" id="modal-detail-title">Movie Title</h2>
+            <div class="detail-hindi-title" id="modal-detail-hindi"></div>
+
+            <div class="detail-meta-row">
+              <span class="badge-tag quality" id="modal-detail-quality">4K UHD</span>
+              <span class="badge-tag rating" id="modal-detail-rating"><i class="fa-solid fa-star"></i> 8.5 IMDb</span>
+              <span style="font-size: 13px; color: var(--text-muted);" id="modal-detail-year">2024</span>
+              <span style="font-size: 13px; color: var(--text-muted);"><i class="fa-regular fa-clock"></i> <span id="modal-detail-duration">2h 30m</span></span>
+              <span style="font-size: 13px; color: var(--text-muted);"><i class="fa-solid fa-language"></i> <span id="modal-detail-audio">Hindi</span></span>
+            </div>
+
+            <div id="modal-detail-genres" style="margin-bottom: 14px;"></div>
+            <p class="detail-overview" id="modal-detail-desc"></p>
+            <div class="detail-cast-list" id="modal-detail-cast"></div>
+
+            <div class="detail-actions">
+              <button class="btn-primary" id="modal-detail-play-btn">
+                <i class="fa-solid fa-play"></i> Watch Now
+              </button>
+              <button class="btn-secondary" id="modal-detail-fav-btn">
+                <i class="fa-solid fa-plus"></i> Watchlist
+              </button>
+              <button class="btn-secondary" id="modal-detail-download-btn">
+                <i class="fa-solid fa-download"></i> Download Options
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. Download Options Modal -->
+  <div class="modal-overlay" id="download-modal">
+    <div class="modal-content" style="max-width: 650px;">
+      <button class="modal-close-btn" title="Close"><i class="fa-solid fa-xmark"></i></button>
+      <div style="padding: 24px 24px 0;">
+        <h3 style="font-size: 20px; font-weight: 700;" id="download-modal-title">Download Options</h3>
+        <p style="font-size: 13px; color: var(--text-muted); margin-top: 4px;">Choose your desired resolution and audio quality</p>
+      </div>
+      <div class="download-grid" id="download-options-grid"></div>
+    </div>
+  </div>
+
+  <!-- 4. Web App Installation & Device Guide Modal (PWA) -->
+  <div class="modal-overlay" id="pwa-guide-modal">
+    <div class="modal-content" style="max-width: 620px; padding: 30px;">
+      <button class="modal-close-btn" title="Close"><i class="fa-solid fa-xmark"></i></button>
+      
+      <div style="text-align: center; margin-bottom: 24px;">
+        <img src="assets/images/logo_icon.png" style="width: 64px; height: 64px; border-radius: 16px; margin-bottom: 12px;">
+        <h3 style="font-size: 22px; font-weight: 800;">How to Add CoCoFlix to Your Home Screen</h3>
+        <p style="font-size: 14px; color: var(--text-muted);">Install CoCoFlix as a web app on any device with 1 click — no app download required</p>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 14px; margin-bottom: 24px;">
+        <div style="display: flex; gap: 16px; align-items: flex-start; background: var(--bg-surface); padding: 14px; border-radius: 12px; border: 1px solid var(--border-glass);">
+          <div style="width: 36px; height: 36px; border-radius: 50%; background: var(--primary); display: flex; align-items: center; justify-content: center; font-weight: 800; flex-shrink: 0;"><i class="fa-brands fa-apple"></i></div>
+          <div>
+            <h4 style="font-size: 14px; font-weight: 700; color: #fff;">iPhone & iPad (Safari)</h4>
+            <p style="font-size: 13px; color: var(--text-muted); margin-top: 2px;">Tap the <b>Share icon</b> at the bottom of Safari, scroll down and tap <b>Add to Home Screen</b>.</p>
+          </div>
+        </div>
+
+        <div style="display: flex; gap: 16px; align-items: flex-start; background: var(--bg-surface); padding: 14px; border-radius: 12px; border: 1px solid var(--border-glass);">
+          <div style="width: 36px; height: 36px; border-radius: 50%; background: var(--primary); display: flex; align-items: center; justify-content: center; font-weight: 800; flex-shrink: 0;"><i class="fa-brands fa-android"></i></div>
+          <div>
+            <h4 style="font-size: 14px; font-weight: 700; color: #fff;">Android (Chrome / Brave)</h4>
+            <p style="font-size: 13px; color: var(--text-muted); margin-top: 2px;">Tap the <b>three dots menu (⋮)</b> in the top right and tap <b>Install App</b> or <b>Add to Home screen</b>.</p>
+          </div>
+        </div>
+
+        <div style="display: flex; gap: 16px; align-items: flex-start; background: var(--bg-surface); padding: 14px; border-radius: 12px; border: 1px solid var(--border-glass);">
+          <div style="width: 36px; height: 36px; border-radius: 50%; background: var(--accent-green); display: flex; align-items: center; justify-content: center; font-weight: 800; flex-shrink: 0;"><i class="fa-solid fa-desktop"></i></div>
+          <div>
+            <h4 style="font-size: 14px; font-weight: 700; color: #fff;">Mac & Windows PC</h4>
+            <p style="font-size: 13px; color: var(--text-muted); margin-top: 2px;">In Chrome or Edge, click the <b>Install icon</b> in the address bar to install CoCoFlix as a standalone desktop app.</p>
+          </div>
+        </div>
+
+        <div style="display: flex; gap: 16px; align-items: flex-start; background: var(--bg-surface); padding: 14px; border-radius: 12px; border: 1px solid var(--border-glass);">
+          <div style="width: 36px; height: 36px; border-radius: 50%; background: var(--accent-gold); display: flex; align-items: center; justify-content: center; font-weight: 800; flex-shrink: 0;"><i class="fa-solid fa-tv"></i></div>
+          <div>
+            <h4 style="font-size: 14px; font-weight: 700; color: #fff;">Smart TV & FireStick</h4>
+            <p style="font-size: 13px; color: var(--text-muted); margin-top: 2px;">Open the built-in browser (Silk, Chrome, or TV Browser), bookmark this website, and stream in 4K on your TV screen.</p>
+          </div>
+        </div>
+      </div>
+
+      <div style="display: flex; justify-content: center;">
+        <button class="btn-primary" style="flex: 1; justify-content: center;" onclick="app.closeModal('pwa-guide-modal')">
+          <i class="fa-solid fa-check"></i> Got It, Let's Stream!
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Center -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- Application Logic Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/app.js"></script>
+
+  <!-- PWA Service Worker Registration -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js')
+          .then(reg => console.log('[PWA] Service Worker active:', reg.scope))
+          .catch(err => console.log('[PWA] Service Worker registration skipped:', err));
+      });
+    }
+  </script>
+</body>
+</html>
